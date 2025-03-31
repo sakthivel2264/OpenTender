@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -68,8 +68,7 @@ export default function CreateTenderForm() {
         bidSubmissionTimestamp,
         contractSignTimestamp,
         data.estimatedCost,
-        data.tenderDetails,
-        "0xCd2dC4809bEa02621630CfeCB03f34D9A5Fe7Cfe" // Hardcoded admin address,
+        data.tenderDetails
       )
 
       toast(

@@ -56,7 +56,6 @@ export async function isAdmin() {
  * @param {number} contractSignDeadline - The timestamp for contract signing deadline.
  * @param {number} estimatedCost - The estimated cost of the tender.
  * @param {string} tenderDetails - Additional details about the tender.
- * @param {string} account - The address of the sender.
  * @returns {Promise<string>} The transaction hash.
  */
 export const createTender = async (
@@ -66,7 +65,6 @@ export const createTender = async (
   contractSignDeadline,
   estimatedCost,
   tenderDetails,
-  account
 ) => {
   try {
     // Ensure the contract and account are defined

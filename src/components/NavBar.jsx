@@ -77,7 +77,7 @@ export default function Navbar() {
         setRole(isUserAdmin ? "Admin" : "Vendor");
   
         console.log("User Role:", isUserAdmin); 
-        if(!role){
+        if(!isUserAdmin){
           if(path === '/dashboard'){
             router.push('/')
             toast("Your are not authorized to access this page");
