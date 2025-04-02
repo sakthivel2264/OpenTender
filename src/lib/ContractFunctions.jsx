@@ -38,6 +38,9 @@ export const initializeContract = async () => {
  */
 
 export async function isAdmin() {
+  if (!contract || !account) {
+    return null;
+  }
   try {
       const result = await contract.methods.isAdmin(account).call();
       console.log("Is admin:", result);

@@ -53,6 +53,7 @@ export default function Navbar() {
 	}
   const web3Handler = async () => {
 		if (web3) {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
 			await initializeContract();
       const role = await isAdmin();
       setRole(role?"Admin":"Vendor")
