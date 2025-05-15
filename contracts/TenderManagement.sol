@@ -32,7 +32,7 @@ contract TenderManagement {
     event BidSubmitted(string tenderId, address bidder, uint256 amount, uint256 bidDate, address vendorId);
 
     // Hardcoded admin address (replace with a valid address)
-    address constant HARDCODED_ADMIN = 0xCd2dC4809bEa02621630CfeCB03f34D9A5Fe7Cfe;
+    address constant HARDCODED_ADMIN = 0xB5B9f8c4d80e63dBa1e91A1C3565fFBdc6de10EB;
 
     constructor() {
         require(HARDCODED_ADMIN != address(0), "Admin address cannot be zero address");

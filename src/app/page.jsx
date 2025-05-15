@@ -6,8 +6,31 @@ import { Button } from "@/components/ui/button"
 import { HeroSection } from "@/components/hero-section"
 import { Footer } from "@/components/footer"
 import Image from "next/image"
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { initializeContract, isAdmin } from "@/lib/ContractFunctions"
 
 export default function Home() {
+  const router = useRouter();
+
+  const web3Handler = async () => {
+        if (typeof window.ethereum === 'undefined') {
+          toast("Please install Metamask");
+          return;
+        }
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        await initializeContract();
+        const role = await isAdmin();
+        if(role){
+          sessionStorage.setItem('role', 'Admin')
+           router.push('/dashboard')
+        }else{
+          sessionStorage.setItem('role', 'Vendor')
+          router.push('/vendor')
+        }
+        toast("Connected to Metamask");
+    }
+
   return (
     <div className="flex min-h-screen flex-col mx-auto ">
       <main className="flex-1 mx-auto">
@@ -183,6 +206,7 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 className="bg-transparent text-primary-foreground border-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                onClick={web3Handler}
               >
                 Get Started <ArrowRight className="ml-2 h-4 w-4" />
               </Button>

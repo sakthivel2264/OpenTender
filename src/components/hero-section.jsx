@@ -6,9 +6,31 @@ import { ArrowRight, Play } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { initializeContract, isAdmin } from "@/lib/ContractFunctions"
 
 export function HeroSection() {
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter();
+
+  const web3Handler = async () => {
+        if (typeof window.ethereum === 'undefined') {
+          toast("Please install Metamask");
+          return;
+        }
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        await initializeContract();
+        const role = await isAdmin();
+        if(role){
+          sessionStorage.setItem('role', 'Admin')
+           router.push('/dashboard')
+        }else{
+          sessionStorage.setItem('role', 'Vendor')
+          router.push('/vendor')
+        }
+        toast("Connected to Metamask");
+    }
 
   return (
     <section>
@@ -32,7 +54,7 @@ export function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg">
+              <Button size="lg" onClick={web3Handler} >
                 Get Started <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Dialog open={isOpen} onOpenChange={setIsOpen}>
