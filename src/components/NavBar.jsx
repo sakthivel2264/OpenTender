@@ -15,6 +15,14 @@ import Product from "@/contracts/TenderManagement.json";
 import { initializeContract, isAdmin } from "@/lib/ContractFunctions";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
 
 export default function Navbar() {
   const [web3, setWeb3] = useState(null)
@@ -137,7 +145,16 @@ export default function Navbar() {
                     <Button onClick={web3Handler} className="cursor-pointer">{role}</Button>
                     </div>
                         ) : (
-                            <Button onClick={web3Handler} className="hidden md:block ml-2 mr-2">Get Started</Button>
+                             <header className="flex justify-end items-center p-4 gap-4 h-16">
+                              <SignedOut>
+                                <SignInButton className="cursor-pointer border-2 rounded-md px-4 py-1.5 border-black"/>
+                                <SignUpButton className="cursor-pointer border-2 rounded-md px-4 py-1.5 bg-black text-white" />
+                              </SignedOut>
+                              <SignedIn>
+                                <UserButton />
+                                  <Button onClick={web3Handler} className="hidden md:block ml-2 mr-2">Get Started</Button>
+                              </SignedIn>
+                            </header>
                         )}
           </div>
 
@@ -164,7 +181,16 @@ export default function Navbar() {
                     </TooltipProvider>
                     </div>
                         ) : (
-                            <Button onClick={web3Handler} className="hidden md:block ml-2 mr-2">Get Started</Button>
+                            <header className="flex justify-end items-center p-4 gap-4 h-16">
+                              <SignedOut>
+                                <SignInButton className="cursor-pointer border-2 rounded-md px-4 py-1.5 border-black"/>
+                                <SignUpButton className="cursor-pointer border-2 rounded-md px-4 py-1.5 bg-black text-white" />
+                              </SignedOut>
+                              <SignedIn>
+                                <UserButton />
+                                  <Button onClick={web3Handler} className="hidden md:block ml-2 mr-2">Get Started</Button>
+                              </SignedIn>
+                            </header>
                         )}
           </div>
           <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
